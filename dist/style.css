@@ -1,0 +1,53 @@
+:root{color-scheme:dark;--base:#0c1826;--panel:#112234;--line:#26394b;--primary:#eaf1f7;--muted:#a2b7c9;--teal:#6de0ca;--amber:#f4bc7a;--red:#f69b94;font-family:Inter,"Segoe UI",system-ui,sans-serif;background:var(--base);color:var(--primary)}
+*{box-sizing:border-box}
+body{margin:0;min-width:280px;line-height:1.5}
+[hidden]{display:none!important}
+.shell{max-width:960px;margin:auto;padding-inline:24px}
+.mast{border-bottom:1px solid var(--line);background:#0b1521;padding-top:env(safe-area-inset-top)}
+.brand{display:flex;align-items:center;gap:10px;min-height:68px}
+.brand img{border-radius:9px}
+.brand strong{font-size:19px;letter-spacing:-.035em}
+.brand span{font-size:14px;color:var(--muted);margin-left:auto}
+.nav{display:flex;gap:20px;margin-top:10px;border-bottom:1px solid var(--line)}
+button{font:inherit;min-height:46px;color:inherit;cursor:pointer}
+.nav button{background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);white-space:nowrap;padding:0 4px}
+.nav button[aria-current]{border-color:var(--teal);color:var(--teal);font-weight:650}
+h1,h2,p{margin:0}
+h1{font-size:clamp(30px,5vw,45px);letter-spacing:-.045em;line-height:1.25}
+h2{font-size:19px}
+.top{margin:32px 0 22px}
+.eyebrow{font-size:14px;color:var(--teal);margin-bottom:6px;font-variant-numeric:tabular-nums}
+.muted,#status,footer{color:var(--muted)}
+#status{margin-top:12px;font-size:14px}
+.market,.metrics,.price-grid,.score-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.surface,.metric{background:var(--panel);border:1px solid var(--line);border-radius:13px}
+.metric{padding:12px 14px}
+.metric small{color:var(--muted);font-size:14px;display:block}
+.metric strong{font-size:21px;font-variant-numeric:tabular-nums;display:block}
+.positive{color:var(--teal)}
+.negative{color:var(--red)}
+.section-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 16px;justify-content:space-between;margin:26px 0 10px}
+.section-head span,footer{font-size:14px;color:var(--muted)}
+.empty,.chart-panel,.annual{padding:20px;margin-top:12px}
+.empty p{margin:8px 0 12px}
+.link-button{border:1px solid #42766f;border-radius:9px;padding:0 14px;color:var(--teal);background:#12302f}
+.candidate{margin:10px 0;overflow:hidden}
+.candidate summary{cursor:pointer;padding:13px 15px;min-height:58px}
+.candidate summary::marker{color:var(--teal)}
+.symbol{font-weight:750;font-size:19px;margin-right:8px}
+.subtitle{font-size:14px;color:var(--muted)}
+.score{float:right;color:var(--teal)}
+.detail{padding:14px;border-top:1px solid var(--line)}
+.detail .metric{background:#0d1c2b;padding:8px}
+.detail .metric strong{font-size:16px}
+.score-grid{margin-bottom:12px}
+.detail label{display:block;margin-top:13px}
+input{display:block;margin:6px 0 10px;padding:8px 12px;width:min(100%,230px);min-height:45px;border-radius:8px;border:1px solid var(--line);background:var(--base);color:var(--primary);font:inherit}
+.sizing{color:var(--teal)}
+.chart{height:248px;width:100%;margin:8px 0 18px}
+.chart-panel h2:nth-of-type(2){margin-top:12px}
+table{border-collapse:collapse;width:100%;table-layout:fixed;margin-top:9px;font-variant-numeric:tabular-nums}
+td,th{padding:8px 4px;text-align:right;border-bottom:1px solid var(--line);font-size:14px}
+td:first-child,th:first-child{text-align:left}
+footer{padding:28px 0 calc(26px + env(safe-area-inset-bottom))}
+@media(max-width:540px){.shell{padding-inline:15px}.nav{gap:16px}.top{margin-top:20px}.market,.metrics,.price-grid,.score-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.metric strong{font-size:19px}.chart-panel,.annual{padding:12px}.subtitle{display:inline-block;max-width:52%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}.detail .metric small{font-size:13px}}

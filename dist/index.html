@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0c1826">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="description" content="美股收盘后的结构候选与研究回测">
+  <title>JLawRadar 收盘雷达</title>
+  <link rel="manifest" href="./app.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <link rel="icon" href="./icon-180.png">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./vendor/echarts.min.js"></script>
+  <script defer src="./report.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <header class="mast"><div class="shell brand"><img src="./icon-180.png" alt="" width="38" height="38"><strong>JLawRadar</strong><span>美股收盘雷达</span></div></header>
+  <main class="shell">
+    <nav aria-label="功能" class="nav">
+      <button type="button" data-tab="scan" aria-current="page">收盘扫描</button>
+      <button type="button" data-tab="archive">历史候选</button>
+      <button type="button" data-tab="backtest">策略回测</button>
+    </nav>
+    <p id="status" role="status">正在读取行情…</p>
+    <section id="scan" aria-labelledby="scan-title">
+      <div class="top"><div><p class="eyebrow" id="session"></p><h1 id="scan-title">收盘扫描</h1></div></div>
+      <div id="market" class="market"></div>
+      <div class="section-head"><h2>当日候选</h2><span id="coverage"></span></div>
+      <div id="today"></div>
+    </section>
+    <section id="archive" aria-labelledby="archive-title" hidden>
+      <div class="top"><h1 id="archive-title">历史候选</h1></div>
+      <p class="muted">按信号日倒序显示。价格和评分对应历史信号日。</p>
+      <div id="history"></div>
+    </section>
+    <section id="backtest" aria-labelledby="backtest-title" hidden>
+      <div class="top"><div><p class="eyebrow" id="period"></p><h1 id="backtest-title">策略回测</h1></div></div>
+      <p id="sample" class="muted"></p>
+      <div id="metrics" class="metrics"></div>
+      <div class="surface chart-panel"><h2>权益对比</h2><div id="equity-chart" class="chart" role="img" aria-label="策略与基准权益曲线"></div><h2>回撤对比</h2><div id="drawdown-chart" class="chart" role="img" aria-label="策略与基准回撤曲线"></div></div>
+      <div class="surface annual"><h2>年度分解</h2><div id="annual"></div></div>
+      <p class="muted">按当前标普 500 成分股回溯，存在幸存者偏差。日线触价为模拟成交。流动性用前复权价与来源成交量估算。</p>
+    </section>
+    <footer>行情为腾讯美股前复权日线。候选用于人工复核。</footer>
+  </main>
+  <template id="candidate-template">
+    <details class="surface candidate">
+      <summary><span class="symbol"></span><span class="subtitle"></span><strong class="score"></strong></summary>
+      <div class="detail">
+        <div class="price-grid"></div>
+        <div class="candle chart" role="img" aria-label="日线与计划价位"></div>
+        <div class="score-grid"></div>
+        <p class="catalyst muted"></p>
+        <p class="muted">财报日期未知</p>
+        <label>账户金额（美元）<input class="capital" type="number" min="1" step="any" inputmode="decimal" placeholder="输入金额"></label>
+        <p class="sizing" aria-live="polite"></p>
+      </div>
+    </details>
+  </template>
+</body>
+</html>
