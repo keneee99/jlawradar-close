@@ -1,6 +1,11 @@
 name: 美股收盘扫描
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/scan.yml'
+      - 'dist/**'
   schedule:
     - cron: '23 21,22,23 * * 1-5'
 permissions:
@@ -12,13 +17,6 @@ jobs:
   scan:
     runs-on: ubuntu-latest
     timeout-minutes: 12
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.publish.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -45,8 +43,32 @@ jobs:
       - run: python scanner/refresh.py
       - run: python scanner/build_report.py
       - run: cp scanner/dist/report.js dist/report.js
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
+  deploy:
+    needs: scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: read
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.publish.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: 确认发布包可读取
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for attempt in {1..8}; do
+            count=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?name=github-pages" --jq '.total_count')
+            if [ "$count" = 1 ]; then exit 0; fi
+            sleep 5
+          done
+          exit 1
       - id: publish
         uses: actions/deploy-pages@v4
